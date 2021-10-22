@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: problem1
+spec:
+  tasks:
+    - name: myclone
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url 
+          value: https://github.com/upslopeio/lint-markdown-files.git
+      workspaces:
+        - name: output
+          workspace: problem1workspace
+    - name: md-lint-run #lint mardown
+      taskRef:
+        name: markdown-lint
+      runAfter:
+        - myclone
+      workspaces:
+        - name: shared-workspace
+          workspace: problem1workspace
+      params:
+        - name: args
+          value: ["."]
+  workspaces:
+    - name:  problem1workspace
