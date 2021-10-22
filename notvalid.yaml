@@ -15,7 +15,7 @@ spec:
       workspaces:
         - name: output
           workspace: problem1workspace
-    - name: md-lint-run #lint mardown
+    - name: md-lint-run
       taskRef:
         name: markdown-lint
       runAfter:
@@ -26,5 +26,5 @@ spec:
       params:
         - name: args
           value: ["."]
-workspaces:
-- name:  problem1workspace
+  workspaces:
+    - name: problem1workspace
